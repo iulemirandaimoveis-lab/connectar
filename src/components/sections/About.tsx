@@ -17,7 +17,6 @@ export function About() {
           {/* Left — Photo */}
           <ScrollReveal direction="left">
             <div className="relative overflow-hidden max-w-md mx-auto lg:mx-0">
-              {/* TODO: substituir por founder-placeholder.jpg do Nano Banana */}
               <div
                 className="aspect-[3/4] relative overflow-hidden"
                 style={{

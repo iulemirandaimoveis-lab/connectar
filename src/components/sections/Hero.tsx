@@ -20,7 +20,6 @@ export function Hero() {
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
     >
       {/* Layer 1 — Background image with parallax */}
-      {/* TODO: substituir por hero-bg.jpg gerada no Nano Banana */}
       <div
         className="absolute inset-[-10%]"
         style={{

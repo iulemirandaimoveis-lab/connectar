@@ -33,7 +33,6 @@ export function Contact() {
       className="relative py-28 lg:py-40 px-6 overflow-hidden"
     >
       {/* Background image layer */}
-      {/* TODO: substituir por cta-bg.jpg do Nano Banana */}
       <div
         className="absolute inset-0"
         style={{
