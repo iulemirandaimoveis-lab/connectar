@@ -106,7 +106,6 @@ export function CTOaaS() {
           {/* Right — Image with parallax */}
           <ScrollReveal delay={0.2} direction="right">
             <div className="relative overflow-hidden">
-              {/* TODO: substituir por cto-visual.jpg do Nano Banana */}
               <div
                 className="aspect-[4/3] lg:aspect-[3/4] relative overflow-hidden"
                 style={{

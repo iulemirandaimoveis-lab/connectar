@@ -16,7 +16,6 @@ export function Essence() {
       style={{ backgroundColor: "var(--bg-secondary)" }}
     >
       {/* Background image layer — honeycomb texture */}
-      {/* TODO: substituir por services-bg.jpg (macro honeycomb) do Nano Banana */}
       <div
         className="absolute inset-0"
         style={{

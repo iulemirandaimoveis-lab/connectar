@@ -22,7 +22,6 @@ export function Results() {
       style={{ backgroundColor: "var(--bg-secondary)" }}
     >
       {/* Accent texture — gold liquid flowing from right */}
-      {/* TODO: substituir por results-texture.jpg do Nano Banana */}
       <div
         className="absolute top-0 right-[-20%] bottom-0 w-[60%]"
         style={{
