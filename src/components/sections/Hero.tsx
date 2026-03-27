@@ -1,82 +1,88 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { Button } from "@/components/ui/Button";
-import { ScrollIndicator } from "@/components/ui/ScrollIndicator";
-import { ParticleField } from "@/components/effects/ParticleField";
+import { motion } from "framer-motion";
+import { NetworkCanvas } from "@/components/effects/NetworkCanvas";
+import { HexGrid } from "@/components/effects/HexGrid";
+import { GlowOrbs } from "@/components/effects/GlowOrbs";
+import { MagneticButton } from "@/components/ui/MagneticButton";
+import { TextReveal } from "@/components/ui/TextReveal";
 
 export function Hero() {
-  const shouldReduceMotion = useReducedMotion();
-
-  const handleCTA = () => {
-    const el = document.querySelector("#contato");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+  const scrollToServices = () => {
+    document.querySelector("#servicos")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
-      {/* Background effects */}
-      <ParticleField />
-
-      {/* Gradient orbs */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/3 rounded-full blur-[100px] pointer-events-none" />
+    <section
+      id="hero"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
+      style={{ backgroundColor: "var(--bg-primary)" }}
+    >
+      {/* Background layers */}
+      <NetworkCanvas />
+      <HexGrid opacity={0.02} />
+      <GlowOrbs count={2} />
 
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-        {/* Logo text */}
+        {/* Wordmark */}
         <motion.p
-          className="font-display text-sm md:text-base tracking-[0.4em] text-secondary/80 uppercase mb-8"
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+          className="text-sm tracking-wider-custom font-extralight uppercase mb-8"
+          style={{ color: "var(--text-secondary)" }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
           CONNECTAR
         </motion.p>
 
         {/* Headline */}
-        <motion.h1
-          className="font-display text-4xl md:text-5xl lg:text-7xl leading-tight lg:leading-[1.1] text-foreground"
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            delay: 0.4,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-        >
-          Tecnologia estrategica
-          <br />
-          <span className="text-secondary">para empresas que</span>
-          <br />
-          nao podem errar.
-        </motion.h1>
+        <TextReveal
+          text="Conexoes inteligentes. Impacto real."
+          as="h1"
+          className="h2-section md:h1-hero"
+          delay={0.8}
+          stagger={0.1}
+        />
 
-        {/* Sub-headline */}
+        {/* Sub-label */}
         <motion.p
-          className="mt-8 text-base md:text-lg text-muted font-mono tracking-wide"
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+          className="mt-8 label-text"
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: 1.4 }}
         >
-          CTO-as-a-Service &middot; Consultoria em IA &middot; Arquitetura de
-          Sistemas
+          Tecnologia &middot; Estrategia &middot; Inteligencia Artificial
         </motion.p>
 
         {/* CTA */}
         <motion.div
-          className="mt-10"
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+          className="mt-12"
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
+          transition={{ duration: 0.6, delay: 1.8 }}
         >
-          <Button size="lg" onClick={handleCTA}>
-            Fale com nosso time
-          </Button>
+          <MagneticButton variant="primary" onClick={scrollToServices}>
+            Conheca nossos servicos
+          </MagneticButton>
         </motion.div>
       </div>
 
-      <ScrollIndicator />
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.5, duration: 0.8 }}
+      >
+        <div
+          className="w-px h-10 animate-pulse-gold"
+          style={{
+            background:
+              "linear-gradient(180deg, var(--gold) 0%, transparent 100%)",
+          }}
+        />
+      </motion.div>
     </section>
   );
 }

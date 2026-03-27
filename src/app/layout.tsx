@@ -3,25 +3,25 @@ import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://connectar.vercel.app"),
+  metadataBase: new URL("https://connectar-five.vercel.app"),
   title: "CONNECTAR — Tecnologia Estratégica & CTO-as-a-Service",
   description:
-    "Liderança tecnológica sênior para empresas em crescimento. CTO-as-a-Service, consultoria em IA, arquitetura de sistemas e recrutamento tech.",
+    "Liderança tecnológica sênior para empresas em crescimento. CTO-as-a-Service, consultoria em IA, arquitetura de sistemas.",
   keywords: [
     "CTO-as-a-Service",
     "consultoria tecnologia",
     "IA empresarial",
-    "arquitetura de sistemas",
+    "arquitetura sistemas",
     "CONNECTAR",
   ],
   authors: [{ name: "CONNECTAR" }],
   openGraph: {
     title: "CONNECTAR — Tecnologia Estratégica",
     description:
-      "CTO-as-a-Service e consultoria em tecnologia para empresas que não podem errar.",
-    url: "https://connectar.vercel.app",
+      "CTO-as-a-Service para empresas que não podem errar.",
+    url: "https://connectar-five.vercel.app",
     siteName: "CONNECTAR",
-    images: [{ url: "/images/og-image.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
     locale: "pt_BR",
     type: "website",
   },
@@ -30,10 +30,7 @@ export const metadata: Metadata = {
     title: "CONNECTAR — Tecnologia Estratégica",
     description: "CTO-as-a-Service para empresas em crescimento.",
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -51,11 +48,14 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="font-sans">
+      <body
+        className="font-brand"
+        style={{ fontFamily: "'Outfit', sans-serif" }}
+      >
         {children}
         <Analytics />
       </body>

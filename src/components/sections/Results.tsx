@@ -1,23 +1,18 @@
 "use client";
 
-import { motion } from "framer-motion";
-import {
-  SectionWrapper,
-  StaggerContainer,
-  staggerItem,
-} from "@/components/ui/SectionWrapper";
-import { useCountUp } from "@/hooks/useCountUp";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 
-/* TODO: substituir por dados reais */
+/* TODO: substituir por dados reais quando disponiveis */
 const metrics = [
-  { value: 30, suffix: "+", label: "empresas atendidas" },
-  { value: 50, prefix: "R$ ", suffix: "M+", label: "em decisoes tecnicas orientadas" },
-  { value: 40, suffix: "%", label: "de reducao em time-to-market medio" },
-  { value: 120, suffix: "+", label: "profissionais tech recrutados" },
+  { value: 15, suffix: "+", label: "empresas atendidas" },
+  { value: 8, prefix: "R$ ", suffix: "M+", label: "em decisoes tecnicas orientadas" },
+  { value: 40, suffix: "%", label: "de reducao em time-to-market" },
+  { value: 50, suffix: "+", label: "profissionais tech recrutados" },
 ];
 
 /* TODO: substituir por logos reais de clientes */
-const clientLogos = [
+const clients = [
   "Cliente A",
   "Cliente B",
   "Cliente C",
@@ -26,76 +21,66 @@ const clientLogos = [
   "Cliente F",
 ];
 
-function MetricCard({
-  value,
-  prefix = "",
-  suffix = "",
-  label,
-}: {
-  value: number;
-  prefix?: string;
-  suffix?: string;
-  label: string;
-}) {
-  const [ref, count] = useCountUp(value);
-
-  return (
-    <div ref={ref}>
-      <motion.div
-        variants={staggerItem}
-        className="text-center p-6"
-      >
-        <p className="font-display text-4xl md:text-5xl text-secondary">
-          {prefix}
-          {count}
-          {suffix}
-        </p>
-        <p className="mt-2 text-sm text-muted">{label}</p>
-      </motion.div>
-    </div>
-  );
-}
-
 export function Results() {
   return (
-    <SectionWrapper
+    <section
       id="resultados"
-      className="py-24 lg:py-32 px-6 lg:px-8 bg-background"
+      className="relative py-24 lg:py-32 px-6"
+      style={{ backgroundColor: "var(--bg-primary)" }}
     >
-      <div className="max-w-7xl mx-auto">
-        <p className="text-xs uppercase tracking-[0.3em] text-secondary font-mono mb-4">
-          Resultados
-        </p>
+      <div className="max-w-[1200px] mx-auto">
+        <ScrollReveal>
+          <p className="label-text mb-4">Resultados</p>
+        </ScrollReveal>
 
-        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-16">
-          Numeros que falam.
-        </h2>
+        <ScrollReveal delay={0.1}>
+          <h2 className="h2-section mb-16">Numeros que falam.</h2>
+        </ScrollReveal>
 
         {/* Metrics */}
-        <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-          {metrics.map((metric) => (
-            <MetricCard key={metric.label} {...metric} />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 mb-20">
+          {metrics.map((m, i) => (
+            <div key={m.label} className="relative">
+              <AnimatedCounter {...m} />
+              {i < metrics.length - 1 && (
+                <div
+                  className="absolute right-0 top-1/4 bottom-1/4 w-px hidden lg:block"
+                  style={{ backgroundColor: "var(--border)" }}
+                />
+              )}
+            </div>
           ))}
-        </StaggerContainer>
+        </div>
 
-        {/* Client Logos */}
-        <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-muted font-mono mb-8 text-center">
+        {/* Logo marquee */}
+        <ScrollReveal delay={0.2}>
+          <p
+            className="label-text text-center mb-8"
+            style={{ color: "var(--text-muted)" }}
+          >
             Empresas que confiam na CONNECTAR
           </p>
-          {/* TODO: substituir por logos reais — usar next/image com grayscale filter */}
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-8 items-center justify-items-center">
-            {clientLogos.map((name) => (
-              <div
-                key={name}
-                className="w-24 h-12 flex items-center justify-center border border-border rounded-sm text-xs text-muted/50 font-mono grayscale hover:grayscale-0 hover:text-muted transition-all duration-300"
-              >
-                {name}
-              </div>
-            ))}
+
+          {/* TODO: substituir por logos reais com next/image */}
+          <div className="relative overflow-hidden">
+            <div className="flex animate-marquee gap-12 py-4">
+              {[...clients, ...clients].map((name, i) => (
+                <div
+                  key={`${name}-${i}`}
+                  className="flex-shrink-0 w-28 h-12 flex items-center justify-center text-xs font-light tracking-wide"
+                  style={{
+                    border: "1px solid var(--border)",
+                    color: "var(--text-ghost)",
+                  }}
+                >
+                  {name}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
-    </SectionWrapper>
+
+    </section>
   );
 }

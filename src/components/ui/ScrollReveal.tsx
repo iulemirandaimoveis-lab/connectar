@@ -3,28 +3,37 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ReactNode } from "react";
 
-interface SectionWrapperProps {
+interface ScrollRevealProps {
   children: ReactNode;
-  id?: string;
   className?: string;
   delay?: number;
+  direction?: "up" | "left" | "right";
 }
 
-export function SectionWrapper({
+export function ScrollReveal({
   children,
-  id,
   className = "",
   delay = 0,
-}: SectionWrapperProps) {
+  direction = "up",
+}: ScrollRevealProps) {
   const shouldReduceMotion = useReducedMotion();
 
+  const offsets = {
+    up: { x: 0, y: 40 },
+    left: { x: -40, y: 0 },
+    right: { x: 40, y: 0 },
+  };
+
   return (
-    <motion.section
-      id={id}
+    <motion.div
       className={className}
-      initial={shouldReduceMotion ? false : { opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
+      initial={
+        shouldReduceMotion
+          ? false
+          : { opacity: 0, ...offsets[direction] }
+      }
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
       transition={{
         duration: 0.7,
         delay,
@@ -32,7 +41,7 @@ export function SectionWrapper({
       }}
     >
       {children}
-    </motion.section>
+    </motion.div>
   );
 }
 
@@ -48,11 +57,9 @@ export function StaggerContainer({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: "-80px" }}
       variants={{
-        visible: {
-          transition: { staggerChildren: 0.15 },
-        },
+        visible: { transition: { staggerChildren: 0.15 } },
       }}
     >
       {children}

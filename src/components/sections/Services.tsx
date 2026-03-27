@@ -1,91 +1,143 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  SectionWrapper,
-  StaggerContainer,
-  staggerItem,
-} from "@/components/ui/SectionWrapper";
+import { ScrollReveal, StaggerContainer, staggerItem } from "@/components/ui/ScrollReveal";
 
 const services = [
   {
+    num: "01",
     title: "CTO-as-a-Service",
-    description: "Lideranca tecnica senior embarcada na sua operacao.",
-    icon: "C",
+    description:
+      "Lideranca tecnologica sob demanda. Arquitetura, squads, roadmap e IA — sem custo de C-level full-time.",
+    core: true,
   },
   {
+    num: "02",
     title: "Consultoria em IA",
     description:
-      "Implementacao de LLMs, automacoes e arquitetura de dados.",
-    icon: "IA",
+      "Diagnosticos, implementacao de LLMs, automacoes inteligentes e arquitetura de dados.",
   },
   {
+    num: "03",
     title: "Arquitetura de Sistemas",
-    description: "Decisoes tecnologicas que escalam com o negocio.",
-    icon: "AS",
+    description:
+      "Decisoes tecnologicas que escalam com o negocio. Code review, DevOps e governanca tecnica.",
   },
   {
+    num: "04",
     title: "Recrutamento Tech",
     description:
-      "Hunting e assessment tecnico para contratacoes estrategicas.",
-    icon: "RT",
+      "Hunting e assessment tecnico para contratacoes de desenvolvedores, tech leads e engenheiros.",
   },
   {
+    num: "05",
     title: "Networking Estrategico",
     description:
       "Conexoes que geram valor real — o nectar do ecossistema.",
-    icon: "NE",
   },
 ];
 
 export function Services() {
   return (
-    <SectionWrapper
+    <section
       id="servicos"
-      className="py-24 lg:py-32 px-6 lg:px-8 bg-background"
+      className="relative py-24 lg:py-32 px-6"
+      style={{ backgroundColor: "var(--bg-primary)" }}
     >
-      <div className="max-w-7xl mx-auto">
-        {/* Eyebrow */}
-        <p className="text-xs uppercase tracking-[0.3em] text-secondary font-mono mb-4">
-          Servicos
-        </p>
+      <div className="max-w-[1200px] mx-auto">
+        <ScrollReveal>
+          <p className="label-text mb-4">Servicos</p>
+        </ScrollReveal>
 
-        {/* Headline */}
-        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-16">
-          Da estrategia a execucao.
-        </h2>
+        <ScrollReveal delay={0.1}>
+          <h2 className="h2-section mb-16">
+            Da estrategia a execucao.
+          </h2>
+        </ScrollReveal>
 
-        {/* Service Cards — asymmetric grid */}
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, i) => (
-            <motion.div
-              key={service.title}
-              variants={staggerItem}
-              className={`group relative p-8 border border-border rounded-sm bg-surface/50 hover:-translate-y-1 hover:border-secondary/40 transition-all duration-300 ${
-                i === 0 ? "lg:col-span-2" : ""
-              }`}
-            >
-              {/* Icon */}
-              <div className="w-12 h-12 flex items-center justify-center border border-secondary/30 rounded-sm mb-6">
-                <span className="font-mono text-sm text-secondary">
-                  {service.icon}
-                </span>
-              </div>
+        {/* Row 1: 3 cards */}
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+          {services.slice(0, 3).map((s) => (
+            <ServiceCard key={s.num} {...s} />
+          ))}
+        </StaggerContainer>
 
-              {/* Content */}
-              <h3 className="font-display text-xl text-foreground mb-3">
-                {service.title}
-              </h3>
-              <p className="text-sm text-muted leading-relaxed">
-                {service.description}
-              </p>
-
-              {/* Hover accent */}
-              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-secondary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </motion.div>
+        {/* Row 2: 2 cards centered */}
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-[800px] mx-auto">
+          {services.slice(3).map((s) => (
+            <ServiceCard key={s.num} {...s} />
           ))}
         </StaggerContainer>
       </div>
-    </SectionWrapper>
+    </section>
+  );
+}
+
+function ServiceCard({
+  num,
+  title,
+  description,
+  core,
+}: {
+  num: string;
+  title: string;
+  description: string;
+  core?: boolean;
+}) {
+  return (
+    <motion.div
+      variants={staggerItem}
+      className="group relative p-8 transition-all duration-400"
+      style={{
+        backgroundColor: "var(--bg-surface)",
+        border: "1px solid var(--border)",
+      }}
+      onMouseEnter={(e) => {
+        const el = e.currentTarget as HTMLElement;
+        el.style.borderColor = "rgba(229, 167, 45, 0.15)";
+        el.style.boxShadow = "0 0 30px rgba(229, 167, 45, 0.05)";
+        el.style.transform = "translateY(-4px)";
+      }}
+      onMouseLeave={(e) => {
+        const el = e.currentTarget as HTMLElement;
+        el.style.borderColor = "var(--border)";
+        el.style.boxShadow = "none";
+        el.style.transform = "translateY(0)";
+      }}
+    >
+      {/* Core badge */}
+      {core && (
+        <span
+          className="absolute top-4 right-4 text-[0.65rem] font-medium tracking-wide-custom uppercase px-3 py-1"
+          style={{
+            border: "1px solid var(--border-gold)",
+            color: "var(--gold)",
+          }}
+        >
+          Core
+        </span>
+      )}
+
+      {/* Number tag */}
+      <span
+        className="text-xs font-normal tracking-wide-custom"
+        style={{ color: "rgba(229, 167, 45, 0.4)" }}
+      >
+        {num}
+      </span>
+
+      {/* Title */}
+      <h3 className="h3-card mt-4 mb-3" style={{ color: "var(--text-primary)" }}>
+        {title}
+      </h3>
+
+      {/* Description */}
+      <p
+        className="text-sm font-light leading-relaxed"
+        style={{ color: "var(--text-secondary)" }}
+      >
+        {description}
+      </p>
+    </motion.div>
   );
 }
