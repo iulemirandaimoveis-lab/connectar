@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { HexGrid } from "@/components/effects/HexGrid";
 import { ScrollReveal, StaggerContainer, staggerItem } from "@/components/ui/ScrollReveal";
 
 const services = [
@@ -32,8 +33,7 @@ const services = [
   {
     num: "05",
     title: "Networking Estrategico",
-    description:
-      "Conexoes que geram valor real — o nectar do ecossistema.",
+    description: "Conexoes que geram valor real — o nectar do ecossistema.",
   },
 ];
 
@@ -41,18 +41,17 @@ export function Services() {
   return (
     <section
       id="servicos"
-      className="relative py-24 lg:py-32 px-6"
-      style={{ backgroundColor: "var(--bg-primary)" }}
+      className="relative py-28 lg:py-40 px-6 golden-ambient"
     >
-      <div className="max-w-[1200px] mx-auto">
+      <HexGrid opacity={0.025} />
+
+      <div className="relative z-10 max-w-[1200px] mx-auto">
         <ScrollReveal>
           <p className="label-text mb-4">Servicos</p>
         </ScrollReveal>
 
         <ScrollReveal delay={0.1}>
-          <h2 className="h2-section mb-16">
-            Da estrategia a execucao.
-          </h2>
+          <h2 className="h2-section mb-20">Da estrategia a execucao.</h2>
         </ScrollReveal>
 
         {/* Row 1: 3 cards */}
@@ -87,55 +86,48 @@ function ServiceCard({
   return (
     <motion.div
       variants={staggerItem}
-      className="group relative p-8 transition-all duration-400"
+      className="group relative p-10 transition-all duration-500 cursor-default"
       style={{
-        backgroundColor: "var(--bg-surface)",
-        border: "1px solid var(--border)",
+        background: "rgba(14, 14, 16, 0.8)",
+        backdropFilter: "blur(10px)",
+        borderLeft: "2px solid var(--gold)",
       }}
       onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLElement;
-        el.style.borderColor = "rgba(229, 167, 45, 0.15)";
-        el.style.boxShadow = "0 0 30px rgba(229, 167, 45, 0.05)";
-        el.style.transform = "translateY(-4px)";
+        const el = e.currentTarget;
+        el.style.borderLeftColor = "var(--gold-light)";
+        el.style.transform = "translateY(-6px)";
+        el.style.boxShadow = "-4px 0 30px rgba(229,167,45,0.08)";
       }}
       onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLElement;
-        el.style.borderColor = "var(--border)";
-        el.style.boxShadow = "none";
+        const el = e.currentTarget;
+        el.style.borderLeftColor = "var(--gold)";
         el.style.transform = "translateY(0)";
+        el.style.boxShadow = "none";
       }}
     >
+      {/* Large background number */}
+      <span
+        className="absolute top-4 right-6 text-[3rem] font-extralight leading-none select-none"
+        style={{ color: "rgba(229,167,45,0.12)" }}
+      >
+        {num}
+      </span>
+
       {/* Core badge */}
       {core && (
         <span
-          className="absolute top-4 right-4 text-[0.65rem] font-medium tracking-wide-custom uppercase px-3 py-1"
-          style={{
-            border: "1px solid var(--border-gold)",
-            color: "var(--gold)",
-          }}
+          className="absolute top-5 right-5 text-[0.6rem] font-medium tracking-wide-custom uppercase px-3 py-1"
+          style={{ border: "1px solid var(--border-gold)", color: "var(--gold)" }}
         >
           Core
         </span>
       )}
 
-      {/* Number tag */}
-      <span
-        className="text-xs font-normal tracking-wide-custom"
-        style={{ color: "rgba(229, 167, 45, 0.4)" }}
-      >
-        {num}
-      </span>
-
-      {/* Title */}
-      <h3 className="h3-card mt-4 mb-3" style={{ color: "var(--text-primary)" }}>
+      {/* Content */}
+      <h3 className="h3-card mt-6 mb-3" style={{ color: "var(--text-primary)" }}>
         {title}
       </h3>
-
-      {/* Description */}
-      <p
-        className="text-sm font-light leading-relaxed"
-        style={{ color: "var(--text-secondary)" }}
-      >
+      <p className="text-sm font-light leading-relaxed" style={{ color: "var(--text-secondary)" }}>
         {description}
       </p>
     </motion.div>

@@ -1,6 +1,5 @@
 "use client";
 
-import { HexGrid } from "@/components/effects/HexGrid";
 import { GlowOrbs } from "@/components/effects/GlowOrbs";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { MagneticButton } from "@/components/ui/MagneticButton";
@@ -31,11 +30,40 @@ export function Contact() {
   return (
     <section
       id="contato"
-      className="relative py-24 lg:py-32 px-6 overflow-hidden"
-      style={{ backgroundColor: "var(--bg-primary)" }}
+      className="relative py-28 lg:py-40 px-6 overflow-hidden"
     >
-      <HexGrid opacity={0.04} />
-      <GlowOrbs count={2} />
+      {/* Background image layer */}
+      {/* TODO: substituir por cta-bg.jpg do Nano Banana */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: "url(/images/cta-bg.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+      {/* Fallback gradient */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(ellipse 60% 50% at 30% 70%, rgba(229,167,45,0.06) 0%, transparent 60%),
+            radial-gradient(ellipse 50% 40% at 70% 30%, rgba(229,167,45,0.04) 0%, transparent 50%),
+            var(--bg-primary)
+          `,
+        }}
+      />
+
+      {/* Heavy overlay for legibility */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(8,8,10,0.6), rgba(8,8,10,0.95))",
+        }}
+      />
+
+      <GlowOrbs count={2} className="z-[1]" />
 
       <div className="relative z-10 max-w-3xl mx-auto text-center">
         <TextReveal
@@ -45,10 +73,7 @@ export function Contact() {
         />
 
         <ScrollReveal delay={0.3}>
-          <p
-            className="mt-6 body-text max-w-xl mx-auto"
-            style={{ color: "var(--text-secondary)" }}
-          >
+          <p className="mt-8 body-text text-lg max-w-xl mx-auto">
             Agende um diagnostico gratuito de 30 minutos e descubra como a
             CONNECTAR pode acelerar sua operacao com tecnologia e inteligencia
             estrategica.
@@ -57,11 +82,8 @@ export function Contact() {
 
         {/* CTA Buttons */}
         <ScrollReveal delay={0.4}>
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <MagneticButton
-              variant="primary"
-              href="mailto:contato@connectar.co"
-            >
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <MagneticButton variant="primary" href="mailto:contato@connectar.co">
               Entrar em Contato
             </MagneticButton>
             {/* TODO: substituir por link real do Calendly */}
@@ -73,33 +95,27 @@ export function Contact() {
 
         {/* Contact cards */}
         <ScrollReveal delay={0.5}>
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-4">
             {contacts.map((c) => (
               <a
                 key={c.label}
                 href={c.href}
                 target={c.href.startsWith("http") ? "_blank" : undefined}
-                rel={
-                  c.href.startsWith("http")
-                    ? "noopener noreferrer"
-                    : undefined
-                }
-                className="group p-6 transition-all duration-300"
-                style={{ border: "1px solid var(--border)" }}
+                rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="group p-8 transition-all duration-300"
+                style={{ border: "1px solid var(--border)", background: "rgba(8,8,10,0.5)" }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor =
-                    "var(--border-gold)";
+                  (e.currentTarget as HTMLElement).style.borderColor = "var(--border-gold)";
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor =
-                    "var(--border)";
+                  (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
                 }}
               >
-                <p className="label-text mb-2" style={{ color: "var(--text-muted)" }}>
+                <p className="label-text mb-3" style={{ color: "var(--text-muted)" }}>
                   {c.label}
                 </p>
                 <p
-                  className="text-sm font-light transition-colors duration-300"
+                  className="text-sm font-light group-hover:text-connectar-gold transition-colors duration-300"
                   style={{ color: "rgba(255,255,255,0.6)" }}
                 >
                   {c.value}

@@ -5,6 +5,7 @@ import { ScrollReveal, StaggerContainer, staggerItem } from "@/components/ui/Scr
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { HexBullet } from "@/components/ui/HexIcon";
 import { GlowOrbs } from "@/components/effects/GlowOrbs";
+import { useParallax } from "@/hooks/useParallax";
 
 const deliverables = [
   "Arquitetura de sistemas e decisoes tecnicas",
@@ -16,16 +17,18 @@ const deliverables = [
 ];
 
 export function CTOaaS() {
+  const parallax = useParallax(0.1);
+
   return (
     <section
       id="cto"
-      className="relative py-24 lg:py-32 px-6 overflow-hidden"
-      style={{ backgroundColor: "var(--bg-surface)" }}
+      className="relative py-28 lg:py-40 px-6 overflow-hidden"
+      style={{ backgroundColor: "var(--bg-primary)" }}
     >
       <GlowOrbs count={1} />
 
       <div className="relative z-10 max-w-[1200px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-16 lg:gap-12 items-start">
           {/* Left — Copy */}
           <div>
             <ScrollReveal>
@@ -33,7 +36,7 @@ export function CTOaaS() {
             </ScrollReveal>
 
             <ScrollReveal delay={0.1}>
-              <h2 className="h2-section mb-8">
+              <h2 className="h2-section mb-10">
                 Seu CTO.
                 <br />
                 <span style={{ color: "var(--gold)" }}>Sem o equity.</span>
@@ -41,7 +44,7 @@ export function CTOaaS() {
             </ScrollReveal>
 
             <ScrollReveal delay={0.2}>
-              <div className="space-y-4 body-text">
+              <div className="space-y-5 body-text text-lg">
                 <p>
                   Empresas em crescimento precisam de lideranca tecnologica
                   senior, mas nem sempre podem — ou devem — contratar um CTO
@@ -55,101 +58,11 @@ export function CTOaaS() {
               </div>
             </ScrollReveal>
 
-            <ScrollReveal delay={0.3}>
-              <div className="mt-8">
-                <MagneticButton
-                  variant="primary"
-                  onClick={() =>
-                    document
-                      .querySelector("#contato")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                >
-                  Agendar diagnostico
-                </MagneticButton>
-              </div>
-            </ScrollReveal>
-          </div>
-
-          {/* Right — Hex visual + deliverables */}
-          <div>
-            {/* Hexagon SVG visual */}
-            <ScrollReveal delay={0.2}>
-              <div className="relative flex items-center justify-center mb-12 py-8">
-                <div className="absolute w-64 h-64 rounded-full bg-connectar-gold opacity-[0.04] blur-[100px]" />
-                <svg
-                  width="180"
-                  height="180"
-                  viewBox="0 0 180 180"
-                  fill="none"
-                  className="relative"
-                >
-                  <path
-                    d="M90 10L160 45V115L90 150L20 115V45L90 10Z"
-                    stroke="#E5A72D"
-                    strokeWidth="0.8"
-                    opacity="0.4"
-                    strokeDasharray="600"
-                    strokeDashoffset="0"
-                  >
-                    <animate
-                      attributeName="stroke-dashoffset"
-                      values="600;0;600"
-                      dur="8s"
-                      repeatCount="indefinite"
-                    />
-                  </path>
-                  <path
-                    d="M100 20L162 52V118L100 150L38 118V52L100 20Z"
-                    stroke="#E5A72D"
-                    strokeWidth="0.8"
-                    opacity="0.2"
-                    strokeDasharray="600"
-                    strokeDashoffset="300"
-                  >
-                    <animate
-                      attributeName="stroke-dashoffset"
-                      values="300;-300;300"
-                      dur="8s"
-                      repeatCount="indefinite"
-                    />
-                  </path>
-                  {/* Orbiting nodes */}
-                  {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => {
-                    const r = 75;
-                    const cx = 90 + r * Math.cos((angle * Math.PI) / 180);
-                    const cy = 90 + r * Math.sin((angle * Math.PI) / 180);
-                    return (
-                      <circle
-                        key={i}
-                        cx={cx}
-                        cy={cy}
-                        r="2.5"
-                        fill="#E5A72D"
-                        opacity="0.3"
-                      >
-                        <animate
-                          attributeName="opacity"
-                          values="0.15;0.5;0.15"
-                          dur={`${3 + i * 0.3}s`}
-                          repeatCount="indefinite"
-                        />
-                      </circle>
-                    );
-                  })}
-                </svg>
-              </div>
-            </ScrollReveal>
-
-            {/* Deliverables list */}
-            <div>
-              <p
-                className="label-text mb-6"
-                style={{ color: "var(--text-muted)" }}
-              >
+            {/* Deliverables */}
+            <div className="mt-12">
+              <p className="label-text mb-6" style={{ color: "var(--text-muted)" }}>
                 O que esta incluido
               </p>
-
               <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-0">
                 {deliverables.map((item) => (
                   <motion.div
@@ -159,10 +72,7 @@ export function CTOaaS() {
                     style={{ borderBottom: "1px solid var(--border)" }}
                   >
                     <HexBullet />
-                    <span
-                      className="text-sm font-light"
-                      style={{ color: "rgba(255,255,255,0.7)" }}
-                    >
+                    <span className="text-sm font-light" style={{ color: "rgba(255,255,255,0.7)" }}>
                       {item}
                     </span>
                   </motion.div>
@@ -170,17 +80,100 @@ export function CTOaaS() {
               </StaggerContainer>
             </div>
 
-            {/* Model tag */}
-            <ScrollReveal delay={0.4}>
+            <ScrollReveal delay={0.3}>
               <p
-                className="mt-8 text-sm font-light tracking-wide text-center md:text-left"
+                className="mt-8 text-sm font-light tracking-wide"
                 style={{ color: "var(--text-muted)" }}
               >
-                Retainer mensal &middot; Escopo definido &middot; Resultados
-                mensuraveis
+                Retainer mensal &middot; Escopo definido &middot; Resultados mensuraveis
               </p>
             </ScrollReveal>
+
+            <ScrollReveal delay={0.4}>
+              <div className="mt-10">
+                <MagneticButton
+                  variant="primary"
+                  onClick={() =>
+                    document.querySelector("#contato")?.scrollIntoView({ behavior: "smooth" })
+                  }
+                >
+                  Agendar diagnostico
+                </MagneticButton>
+              </div>
+            </ScrollReveal>
           </div>
+
+          {/* Right — Image with parallax */}
+          <ScrollReveal delay={0.2} direction="right">
+            <div className="relative overflow-hidden">
+              {/* TODO: substituir por cto-visual.jpg do Nano Banana */}
+              <div
+                className="aspect-[4/3] lg:aspect-[3/4] relative overflow-hidden"
+                style={{
+                  transform: `translateY(${parallax * 0.5}px)`,
+                  willChange: "transform",
+                }}
+              >
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    backgroundImage: "url(/images/cto-visual.jpg)",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    filter: "saturate(0.7) brightness(0.9)",
+                  }}
+                />
+                {/* Fallback when no image */}
+                <div
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ backgroundColor: "var(--bg-surface)" }}
+                >
+                  {/* Animated hex visual as fallback */}
+                  <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
+                    <path
+                      d="M100 10L180 50V130L100 170L20 130V50L100 10Z"
+                      stroke="#E5A72D"
+                      strokeWidth="0.8"
+                      opacity="0.3"
+                      strokeDasharray="600"
+                      strokeDashoffset="0"
+                    >
+                      <animate attributeName="stroke-dashoffset" values="600;0;600" dur="8s" repeatCount="indefinite" />
+                    </path>
+                    <path
+                      d="M110 25L182 60V140L110 175L38 140V60L110 25Z"
+                      stroke="#E5A72D"
+                      strokeWidth="0.8"
+                      opacity="0.15"
+                      strokeDasharray="600"
+                      strokeDashoffset="300"
+                    >
+                      <animate attributeName="stroke-dashoffset" values="300;-300;300" dur="8s" repeatCount="indefinite" />
+                    </path>
+                    {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => {
+                      const r = 80;
+                      const cx = 100 + r * Math.cos((angle * Math.PI) / 180);
+                      const cy = 100 + r * Math.sin((angle * Math.PI) / 180);
+                      return (
+                        <circle key={i} cx={cx} cy={cy} r="2.5" fill="#E5A72D" opacity="0.25">
+                          <animate attributeName="opacity" values="0.1;0.4;0.1" dur={`${3 + i * 0.3}s`} repeatCount="indefinite" />
+                        </circle>
+                      );
+                    })}
+                  </svg>
+                </div>
+
+                {/* Gradient overlay that fades image into background */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(8,8,10,0.8) 0%, rgba(8,8,10,0) 30%, rgba(8,8,10,0) 80%, rgba(8,8,10,0.3) 100%)",
+                  }}
+                />
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>
